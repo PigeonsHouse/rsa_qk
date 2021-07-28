@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import Head from 'next/head';
 import styles from '../styles/Home.module.css';
 import Solve from '../components/solve';
 import Create from '../components/create';
@@ -8,6 +9,9 @@ export default function Home() {
 
   return (
     <>
+      <Head>
+        <title>RSA暗号を解いてみよう/作ってみよう</title>
+      </Head>
       <p className={styles.title}>RSA暗号を解いてみよう/作ってみよう</p>
       <p className={styles.description}>
         <a href="https://quizknock.com/" target="_blank" rel="noreferrer" className={styles.link}>QuizKnock</a>さんが<a href="https://youtu.be/kvC55N4k9ng" target="_blank" rel="noreferrer" className={styles.link}>こちら</a>の動画で解説していたRSA暗号の復号の手順が非常に興味深かったので，動画で紹介されていた方法でパソコンやスマホで実際にRSA暗号を解いたり作ったりできるサイトを作ってみました！<br/>
