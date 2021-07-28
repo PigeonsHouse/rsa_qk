@@ -105,11 +105,6 @@ export default function Create() {
       setIsCreating(false);
       return;
     }
-    if(!checkPrime(tempKey3)){
-      alert('鍵3が素数になっていません．');
-      setIsCreating(false);
-      return;
-    }
 
     let plainText :number = makePlainText(word);
     if(plainText >= tempKey12){
@@ -124,7 +119,6 @@ export default function Create() {
 
     let code;
     for(code = 1; code < tempKey12; code++){
-      console.log(mod(code, d, tempKey12));
       if(plainText === mod(code, d, tempKey12)){
         let tempAnswerWord :string = code.toString() + 'e' + tempKey12.toString() + ' (e=' + tempKey3 + ')'
         setAnswerWord(tempAnswerWord);

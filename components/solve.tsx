@@ -40,7 +40,7 @@ export default function Solve() {
   }
 
   const decideM = (key:any, tempKey1:number, tempKey2:number) => {
-    key = parseInt(key);
+    key = Number(key);
     const firstMod = (tempKey1-1)*(tempKey2-1)%key;
     const secondMod = 2*(tempKey1-1)*(tempKey2-1)%key;
     if(firstMod === key-1) return 1;
@@ -75,7 +75,7 @@ export default function Solve() {
 
   const checkCreateAnswer = (answerCode :number) => {
     let answerWord = createAnswer(answerCode);
-    return answerWord.indexOf('undefined') === -1 && answerWord !== createAnswer(parseInt(code)) && answerWordArray.indexOf(answerWord) === -1 ? answerWord : 'undefined';
+    return answerWord.indexOf('undefined') === -1 && answerWord !== createAnswer(Number(code)) && answerWordArray.indexOf(answerWord) === -1 && answerWord.length > 0 ? answerWord : 'undefined';
   }
 
   const startSolve = (e :any) => {
@@ -85,28 +85,22 @@ export default function Solve() {
   }
 
   const SolveCodes = () => {
-    if (!code || isNaN(Number(code))) {
-      alert("暗号を入力してください．");
+    let tempCode :number;
+    let tempKey12 :number;
+    let tempKey1 :number;
+    let tempKey2 :number;
+    let tempKey3 :number;
+    if(code !== ''){
+      tempCode = Number(code);
+    }else{
+      alert('暗号を入力してください．');
       setIsSolving(false);
       return;
     }
-    if(!(key1 && key2 || key12) || isNaN(Number(key12)) || isNaN(Number(key1)) || isNaN(Number(key2))){
-      alert("鍵1と2の情報が不足しています．");
-      setIsSolving(false);
-      return;
-    }
-    if(isNaN(Number(code)) || isNaN(Number(key12)) || isNaN(Number(key1)) || isNaN(Number(key2))){
-      alert("数字のみ入力してください．");
-      setIsSolving(false);
-      return;
-    }
-    const key1Array:Array<number> = [];
-    let tempKey1 = 1;
-    let tempKey2 = 1;
-    let tempKey12 = 1;
     if(key12 !== ''){
-      tempKey12 = parseInt(key12);
-      for(tempKey1 = 2; tempKey1**2 < tempKey12; tempKey1++){
+      tempKey12 = Number(key12);
+      const key1Array:Array<number> = [];
+      for(tempKey1 = 2;tempKey1**2 <= tempKey12; tempKey1++){
         if(tempKey12 % tempKey1 === 0) key1Array.push(tempKey1);
       }
       if(key1Array.length === 1){
@@ -117,52 +111,56 @@ export default function Solve() {
         setIsSolving(false);
         return;
       }
-    }else{
-      if(key1 !== '' && key2 !== ''){
-        tempKey1 = parseInt(key1);
-        let tempNum;
-        if(tempKey1 === 1){
+    }else if(key1 !== '' && key2 !== ''){
+      tempKey1 = Number(key1);
+      tempKey2 = Number(key2);
+      let tempNum;
+      if(tempKey1 === 1){
+        alert("鍵1は素数ではありません．");
+        setIsSolving(false);
+        return;
+      }
+      if(tempKey2 === 1){
+        alert("鍵2は素数ではありません．");
+        setIsSolving(false);
+        return;
+      }
+      for (tempNum = 2; tempNum**2 <= tempKey1; tempNum++){
+        if(tempKey1 % tempNum === 0){
           alert("鍵1は素数ではありません．");
           setIsSolving(false);
           return;
         }
-        for (tempNum = 2; tempNum**2 <= tempKey1; tempNum++){
-          if(tempKey1 % tempNum === 0){
-            alert("鍵1は素数ではありません．");
-            setIsSolving(false);
-            return;
-          }
-        }
-        tempKey2 = parseInt(key2);
-        if(tempKey2 === 1){
+      }
+      for (tempNum = 2; tempNum**2 <= tempKey2; tempNum++){
+        if(tempKey2 % tempNum === 0){
           alert("鍵2は素数ではありません．");
           setIsSolving(false);
           return;
         }
-        for (tempNum = 2; tempNum**2 <= tempKey2; tempNum++){
-          if(tempKey2 % tempNum === 0){
-            alert("鍵2は素数ではありません．");
-            setIsSolving(false);
-            return;
-          }
-        }
       }
+    }else{
+      alert('鍵1と2の情報が不足しています．');
+      setIsSolving(false);
+      return;
     }
-    let m=0, d=0, answerCode=0;
-    let toSetAnswerWord = '';
-    if(key3 !== '' && !isNaN(Number(key3))){
-      let tempKey3 = parseInt(key3);
+    let m :number;
+    let d :number;
+    let answerCode :number;
+    let toSetAnswerWord :string = '';
+    if(key3 !== ''){
+      tempKey3 = Number(key3);
       m = decideM(tempKey3, tempKey1, tempKey2);
       d = (m*(tempKey1-1)*(tempKey2-1)+1)/tempKey3;
-      answerCode = mod(code, d, key12);
+      answerCode = mod(tempCode, d, tempKey1*tempKey2);
       toSetAnswerWord = createAnswer(answerCode);
     }else{
       for(let i=1; i<65538; i++){
         m = decideM(i, tempKey1, tempKey2);
         d = (m*(tempKey1-1)*(tempKey2-1)+1)/i;
-        answerCode = mod(code, d, key12);
+        answerCode = mod(tempCode, d, tempKey1*tempKey2);
         let AC = checkCreateAnswer(answerCode);
-        if(AC !== 'undefined' && AC !== ''){
+        if(AC !== 'undefined'){
           answerWordArray.push(AC);
           answerWordNumArray.push(i);
         }
@@ -194,7 +192,7 @@ export default function Solve() {
       </form>
       {isSolving?(
         <>
-          <h2 className={styles.loading}>解読中…</h2>
+          <h2 className={styles.loading}>復号中…</h2>
         </>
       ):(<></>)}
       <textarea className={styles.answer} value={answerWord} readOnly />
