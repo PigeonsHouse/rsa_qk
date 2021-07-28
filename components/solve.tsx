@@ -113,7 +113,7 @@ export default function Solve() {
         tempKey1 = key1Array[0];
         tempKey2 = tempKey12 / key1Array[0];
       }else{
-        alert("素因数分解に失敗しました．鍵1&2は素数2個で構成された合成数になっていますか？");
+        alert("素因数分解に失敗しました．鍵1&2は異なる素数2個で構成された合成数になっていますか？");
         setIsSolving(false);
         return;
       }
@@ -183,7 +183,7 @@ export default function Solve() {
 
 	return (
 		<>
-      <p className={styles.descriptionSmall + ' ' + styles.caution}><small>※　暗号と鍵1,2は必ず入力してください．また，鍵3が入力されていない場合，復号に成功したメッセージを全て表示しています．</small></p>
+      <p className={styles.descriptionSmall + ' ' + styles.caution}><small>※　暗号と鍵1,2は必ず入力してください．また，鍵3が入力されていない場合，65537までを虱潰しに調査し，復号に成功したメッセージを全て表示しています．</small></p>
       <form className={styles.form} onSubmit={startSolve}>
           <input className={styles.input} type="tel" placeholder="暗号" value={code} onChange={handleCode} />
           <input className={styles.input} type="tel" placeholder="鍵1&2(n)" value={key12} onChange={handleKey12} />
