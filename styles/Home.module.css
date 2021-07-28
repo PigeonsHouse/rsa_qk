@@ -33,17 +33,17 @@
   font-size: 1rem;
   padding: 5px 30px;
   margin: 0 10px 10px;
-  background-color: #C52929;
-  color: white;
   border-radius: 5px;
   font-weight: 600;
   transition: all 0.2s;
-  border: 2px #C52929 solid;
+  background-color: #EEE;
+  color: #333;
+  border: 2px #333 solid;
 }
 .button:hover {
-  background-color: white;
-  color: black;
-  border: 2px black solid;
+  background-color: #C52929;
+  color: white;
+  border: 2px #C52929 solid;
 }
 .buttonSelected {
   cursor: pointer;
@@ -53,9 +53,9 @@
   border-radius: 5px;
   font-weight: 600;
   transition: all 0.2s;
-  background-color: white;
-  color: black;
-  border: 2px black solid;
+  background-color: #C52929;
+  color: white;
+  border: 2px #C52929 solid;
 }
 .descriptionSmall {
   text-align: center;
@@ -74,8 +74,9 @@
   max-width: 450px;
 }
 .loading {
-  color: #C52929;
+  color: #555;
   text-align: center;
+	/* text-shadow: -2px -2px #C52929, 2px -2px #C52929,	-2px 2px #C52929, 2px 2px #C52929, 0px -2px #C52929, 0px 2px #C52929, -2px 0px #C52929, 2px 0px #C52929; */
 }
 .answer {
   display: block;
