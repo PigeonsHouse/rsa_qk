@@ -72,6 +72,7 @@
   border-radius: 10px;
   width: 60%;
   max-width: 450px;
+  ime-mode: disabled;
 }
 .loading {
   color: #555;

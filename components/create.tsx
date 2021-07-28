@@ -114,7 +114,7 @@ export default function Create() {
     let plainText :number = makePlainText(word);
     if(plainText >= tempKey12){
       let criterion :number = Math.ceil(Math.sqrt(plainText));
-      alert('鍵の数値が小さすぎます．目安は' + criterion.toString() + 'です．');
+      alert('鍵1,2の数値が小さすぎます．この2つの積が' + plainText.toString() + '以上になるよう設定してください．鍵1,2の目安は' + criterion.toString() + 'です．');
       setIsCreating(false);
       return;
     }
@@ -132,7 +132,7 @@ export default function Create() {
         return;
       }
     }
-    alert('暗号化に失敗しました．');
+    alert('暗号化に失敗しました．鍵1~3の値を調整してみてください．');
     setIsCreating(false);
     return;
   }
@@ -145,9 +145,9 @@ export default function Create() {
 
   return (
     <>
-      <p className={styles.descriptionSmall + ' ' + styles.caution}><small>※　平文は最大8文字の大文字のアルファベットのみに対応しております．鍵1と鍵2は異なる素数にしてください．また，平文が長ければ長いほど生成に時間がかかり，最悪ブラウザがクラッシュする可能性があります．</small></p>
+      <p className={styles.descriptionSmall + ' ' + styles.caution}><small>※　平文は最大8文字の大文字のアルファベットのみに対応しております．鍵1と鍵2は異なる素数にしてください．また，平文が長ければ長いほど生成に時間がかかり，最悪ブラウザがクラッシュする可能性があります．おすすめは3桁以下です．</small></p>
       <form className={styles.form} onSubmit={startCreate}>
-          <input className={styles.input} type="tel" placeholder="平文" value={word} onChange={handleWord} required />
+          <input className={styles.input} type="text" placeholder="平文" value={word} onChange={handleWord} required />
           <input className={styles.input} type="tel" placeholder="鍵1(p)" value={key1} onChange={handleKey1} required />
           <input className={styles.input} type="tel" placeholder="鍵2(q)" value={key2} onChange={handleKey2} required />
           <input className={styles.input} type="tel" placeholder="鍵3(e)" value={key3} onChange={handleKey3} required />
